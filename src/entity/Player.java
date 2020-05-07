@@ -19,6 +19,7 @@ public class Player extends Hitbox {
     private int hurtDirection;
     private boolean isInvincible;
     private int invincibleFrame;
+    private int lives;
     public Player(double posX, double posY, double speedX, double jumpSpeed){
         super(posX, posY);
         this.isOnPlatforms = false;
@@ -28,13 +29,14 @@ public class Player extends Hitbox {
         movement = new PlayerMovement(speedX, jumpSpeed, 14);
         attack = new PlayerAttack(this);
         playerSprite = new PlayerSprite(this);
-        health = 10;
+        health = 20;
         isInvincible = false;
         invincibleFrame = 0;
+        lives = 3;
     }
     public void update() {
         movement.update(this);
-        attack.update(this);
+//        attack.update(this);
         if (isInvincible){
             invincibleFrame++;
             if (invincibleFrame == 60){
@@ -121,7 +123,9 @@ public class Player extends Hitbox {
     }
 
     public void setHealth(int health) {
-        this.health = health;
+        if (health <= 0){
+            this.health = 0;
+        }else this.health = Math.min(health, 20);
     }
     public boolean getIsHurt(){
         return  isHurt;
@@ -146,5 +150,16 @@ public class Player extends Hitbox {
 
     public int getInvincibleFrame() {
         return invincibleFrame;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void setLives(int lives) {
+        if (lives <= 0){
+            this.lives = 0;
+        }
+        this.lives = lives;
     }
 }

@@ -43,10 +43,10 @@ public class PlayerMovement {
                 hurtFrame = 0;
                 player.setIsHurt(false);
             }
-        }else if (player.getAttack().getIsAttack()){
-            if (!isJump){
-                speedX = 0;
-            }
+        }
+        else if (player.getAttack().getIsAttack()&&!player.getAttack().getIsAttackAir()){
+            speedX = 0;
+
         }
         else {
             if (isMoveLeft && !isDash && !isMoveRight) {
@@ -62,6 +62,10 @@ public class PlayerMovement {
         player.setPosX(player.getPosX()+speedX);
         player.setPosY(player.getPosY()+speedY);
         isIdle = speedX==0&&speedY==0&&!isJump&&!player.getAttack().getIsAttack();
+    }
+    public void stopMovement(){
+        speedX = 0;
+        speedY = 0;
     }
     public void hurt(int hurtDirection){
         if (hurtDirection==0){

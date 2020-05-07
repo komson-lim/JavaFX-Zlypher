@@ -3,6 +3,8 @@ package entity;
 import javafx.geometry.Bounds;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import pane.GamePane;
+import pane.GameUI;
 
 public abstract class Hitbox {
     protected Rectangle hitbox;
@@ -21,11 +23,11 @@ public abstract class Hitbox {
         this.height = hitbox.getHeight();
         this.width = hitbox.getWidth();
     }
-    public void render(Pane root){
-        root.getChildren().add(hitbox);
+    public void render(GamePane gamePane){
+        gamePane.getChildren().add(hitbox);
     }
-    public void kill(Pane root){
-        root.getChildren().remove(hitbox);
+    public void kill(GamePane gamePane){
+        gamePane.getChildren().remove(hitbox);
     }
     public void updatePos(){
         hitbox.setTranslateX(posX);

@@ -45,7 +45,7 @@ public class PlayerAttack {
                 attackFrame++;
             }
         }
-        if (isAttackAir && attackFrame >= 12){
+        if (isAttackAir && attackFrame >= 20){
             attackEnd();
         }
         if (attackFrame >= 20) {
@@ -64,7 +64,7 @@ public class PlayerAttack {
     }
     public void attack(Player player){
         atkHB.setSize(100,30);
-        atkHB.setDamage(3);
+        atkHB.setDamage(8);
         if (player.getMovement().getDirection()==1) {
             atkHB.updatePos(player.getPosX() + 50, player.getPosY() + 75);
         }else if (player.getMovement().getDirection()==-1){
@@ -77,19 +77,105 @@ public class PlayerAttack {
 //            atkHB.setSize(65,100);
 //            atkHB.updatePos(player.getPosX()-40, player.getPosY()-50);
 //        }
-        atkHB.setDamage(1);
-        if (attackFrame <= 1){
-            atkHB.setSize(100,100);
-            atkHB.updatePos(player.getPosX() + 50, player.getPosY()-10);
-        }else if (attackFrame <= 3){
-            atkHB.setSize(100,100);
-            atkHB.updatePos(player.getPosX() + 25, player.getPosY()+75);
-        }else if (attackFrame <= 5){
-            atkHB.setSize(100,100);
-            atkHB.updatePos(player.getPosX() -80, player.getPosY()+50);
-        }else if (attackFrame <= 7){
-            atkHB.setSize(100,100);
-            atkHB.updatePos(player.getPosX()-40, player.getPosY()-50);
+        atkHB.setDamage(4);
+        if (player.getMovement().getDirection()==1) {
+//            atkHB.setSize(100, 100);
+//            atkHB.updatePos(player.getPosX() + 50, player.getPosY() - 10);
+
+            switch (attackFrame) {
+                case 0:
+                    atkHB.setSize(100, 100);
+            atkHB.updatePos(player.getPosX() +10, player.getPosY() - 50);
+                    break;
+                case 1:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY() - 50);
+                    break;
+                case 2:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY() +35);
+                    break;
+                case 3:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 25, player.getPosY() + 75);
+                    break;
+                case 4:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX()-50, player.getPosY() + 75);
+                    break;
+                case 5:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() - 80, player.getPosY() + 50);
+                    break;
+                case 6:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() - 80, player.getPosY()-25);
+                    break;
+                case 7:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX()-75, player.getPosY() - 50);
+                    break;
+                case 8:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX()+15, player.getPosY() - 50);
+                    break;
+                case 9:
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY() - 10);
+                    break;
+            }
+        }
+        else if (player.getMovement().getDirection()==-1){
+
+//            atkHB.setSize(100, 100);
+//            atkHB.updatePos(player.getPosX() - 80, player.getPosY()-10);
+            switch (attackFrame){
+                case 0:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() - 50, player.getPosY() - 50);
+                    break;
+                case 1:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() - 80, player.getPosY()-50);
+                    break;
+                case 2:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX()-80, player.getPosY()+30);
+                    break;
+                case 3:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() - 60, player.getPosY()+75);
+                    break;
+                case 4:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() +25, player.getPosY()+75);
+                    break;
+                case 5:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY() + 50);
+                    break;
+                case 6:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY());
+                    break;
+                case 7:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX() + 50, player.getPosY() - 50);
+                    break;
+                case 8:
+                    atkHB.setSize(100, 100);
+                    atkHB.updatePos(player.getPosX()-45, player.getPosY() - 45);
+                    break;
+                case 9:
+                    atkHB.updatePos(player.getPosX() - 80, player.getPosY()-10);
+                    break;
+            }
+
+//
+//
+//            } else if (attackFrame <= 10) {
+//                atkHB.setSize(100, 100);
+//                atkHB.updatePos(player.getPosX() - 60, player.getPosY()+75);
+//            }
         }
 //        atkHB.setSize(100,30);
 //        if (player.getMovement().getDirection()==1) {

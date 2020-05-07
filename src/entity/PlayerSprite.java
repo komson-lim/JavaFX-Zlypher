@@ -22,6 +22,7 @@ public class PlayerSprite extends Sprite {
     private ImageView[] atks;
     private ImageView[] atksLeft;
     private ImageView[] atkAirs;
+    private ImageView[] atkAirsLeft;
     private int idleFrame;
     private int walkFrame;
     private int jumpFrame;
@@ -98,6 +99,22 @@ public class PlayerSprite extends Sprite {
         ImageView atkAir2 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir2.png").toString(), 500,260,true,true));
         ImageView atkAir3 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir3.png").toString(), 500,260,true,true));
         ImageView atkAir4 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir4.png").toString(), 500,260,true,true));
+        ImageView atkAir5 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir5.png").toString(), 500,260,true,true));
+        ImageView atkAir6 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir6.png").toString(), 500,260,true,true));
+        ImageView atkAir7 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir7.png").toString(), 500,260,true,true));
+        ImageView atkAir8 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir8.png").toString(), 500,260,true,true));
+        ImageView atkAir9 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir9.png").toString(), 500,260,true,true));
+        ImageView atkAir10 = new ImageView(new Image(ClassLoader.getSystemResource("atkAir10.png").toString(), 500,260,true,true));
+        ImageView atkAirL1 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL1.png").toString(), 500,260,true,true));
+        ImageView atkAirL2 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL2.png").toString(), 500,260,true,true));
+        ImageView atkAirL3 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL3.png").toString(), 500,260,true,true));
+        ImageView atkAirL4 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL4.png").toString(), 500,260,true,true));
+        ImageView atkAirL5 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL5.png").toString(), 500,260,true,true));
+        ImageView atkAirL6 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL6.png").toString(), 500,260,true,true));
+        ImageView atkAirL7 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL7.png").toString(), 500,260,true,true));
+        ImageView atkAirL8 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL8.png").toString(), 500,260,true,true));
+        ImageView atkAirL9 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL9.png").toString(), 500,260,true,true));
+        ImageView atkAirL10 = new ImageView(new Image(ClassLoader.getSystemResource("atkAirL10.png").toString(), 500,260,true,true));
 
         idles = new ImageView[]{idle1, idle2, idle3, idle4};
         idlesLeft = new ImageView[]{idleL1, idleL2, idleL3, idleL4};
@@ -115,7 +132,8 @@ public class PlayerSprite extends Sprite {
         fallsLeft = new ImageView[]{fallL1,fallL2,fallL3};
         atks = new ImageView[]{atk1,atk2,atk3,atk4,atk5,atk6,atk7,atk8,atk9,atk10};
         atksLeft = new ImageView[]{atkL1,atkL2,atkL3,atkL4,atkL5,atkL6,atkL7,atkL8,atkL9,atkL10};
-        atkAirs = new ImageView[]{atkAir1,atkAir2,atkAir3,atkAir4};
+        atkAirs = new ImageView[]{atkAir1,atkAir2,atkAir3,atkAir4,atkAir5,atkAir6,atkAir7,atkAir8,atkAir9,atkAir10};
+        atkAirsLeft = new ImageView[]{atkAirL1,atkAirL2,atkAirL3,atkAirL4,atkAirL5,atkAirL6,atkAirL7,atkAirL8,atkAirL9,atkAirL10};
         idleFrame = 0;
         walkFrame = 0;
         jumpFrame = 0;
@@ -137,9 +155,14 @@ public class PlayerSprite extends Sprite {
             }
             if (player.getAttack().getIsAttackAir()){
                 if (movement.getDirection()==1){
-                    setImage(atkAirs[player.getAttack().getAttackFrame()/3]);
-//                    setImage(atkAirs[3]);
+                    setImage(atkAirs[player.getAttack().getAttackFrame()/2]);
+//                    setImage(atkAirs[9]);
                     setPosX(player.getPosX() - 105);
+                    setPosY(player.getPosY() - 80);
+                }else if (movement.getDirection()==-1){
+                    setImage(atkAirsLeft[player.getAttack().getAttackFrame()/2]);
+//                    setImage(atkAirsLeft[9]);
+                    setPosX(player.getPosX() - 93);
                     setPosY(player.getPosY() - 80);
                 }
             }
