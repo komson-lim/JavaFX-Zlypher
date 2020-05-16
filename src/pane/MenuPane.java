@@ -42,7 +42,7 @@ public class MenuPane extends VBox {
         setSpacing(25);
         media = new Media(ClassLoader.getSystemResource("menu.mp3").toString());
         mediaPlayer = new MediaPlayer(media);
-        mediaPlayer.setVolume(0.1);
+        mediaPlayer.setVolume(0.3);
         mediaPlayer.setOnEndOfMedia(new Runnable() {
             @Override
             public void run() {

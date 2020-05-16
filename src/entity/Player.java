@@ -2,6 +2,7 @@ package entity;
 
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import logic.PlayerAttack;
@@ -20,6 +21,7 @@ public class Player extends Hitbox {
     private boolean isInvincible;
     private int invincibleFrame;
     private int lives;
+    private AudioClip hitSFX;
     public Player(double posX, double posY, double speedX, double jumpSpeed){
         super(posX, posY);
         this.isOnPlatforms = false;
@@ -33,6 +35,8 @@ public class Player extends Hitbox {
         isInvincible = false;
         invincibleFrame = 0;
         lives = 3;
+        hitSFX = new AudioClip(ClassLoader.getSystemResource("hit.WAV").toString());
+        hitSFX.setVolume(0.1);
     }
     public void update() {
         movement.update(this);
@@ -132,6 +136,9 @@ public class Player extends Hitbox {
     }
     public void setIsHurt(boolean isHurt){
         this.isHurt = isHurt;
+        if (isHurt){
+            hitSFX.play();
+        }
     }
 
     public int getHurtDirection() {

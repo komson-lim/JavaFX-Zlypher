@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,12 +20,22 @@ public class GamePane extends Pane {
     private ArrayList<Platform> platforms;
     private ArrayList<Enemy>enemies;
     private Player player;
+    private MediaPlayer mediaPlayer;
     public GamePane(int width, int height){
         canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
         player = new Player(30, height - 600, 5,18);
         platforms = new ArrayList<>();
         enemies = new ArrayList<>();
+        mediaPlayer = new MediaPlayer(new Media(ClassLoader.getSystemResource("stage.mp3").toString()));
+        mediaPlayer.setVolume(0.3);
+        mediaPlayer.setOnEndOfMedia(new Runnable() {
+            @Override
+            public void run() {
+                mediaPlayer.seek(Duration.ZERO);
+                mediaPlayer.play();
+            }
+        });
 //        this.getChildren().add(canvas);
 
     }
@@ -63,6 +76,10 @@ public class GamePane extends Pane {
                     player.getAttack().attackRelease();
             }
         });
+    }
+
+    public MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 
     public Canvas getCanvas() {

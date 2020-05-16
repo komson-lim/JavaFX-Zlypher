@@ -73,6 +73,7 @@ public class Main extends Application {
 
     }
     private void reset(int levelNumber) throws NoLevelDataException{
+        gamePane.getMediaPlayer().stop();
         player.setHealth(20);
         player.getMovement().setDirection(1);
         player.setIsInvincible(false);
@@ -102,6 +103,7 @@ public class Main extends Application {
                         root.getChildren().remove(loadScreen);
                         gamePane.getChildren().add(canvas);
                         timer.start();
+                        gamePane.getMediaPlayer().play();
                     }
                 });
             }
@@ -231,6 +233,8 @@ public class Main extends Application {
                 root.getChildren().add(gameOverPane);
                 player.setLives(3);
                 currentLevelNumber=1;
+                reset(currentLevelNumber);
+                loadScreen.setLives(player.getLives());
                 timer.stop();
             }else {
                 reload(currentLevelNumber);
@@ -270,8 +274,8 @@ public class Main extends Application {
         primaryStage.setScene(mainMenu);
         primaryStage.setTitle("Platformer");
         primaryStage.setResizable(false);
-        primaryStage.show();
         menuPane.play();
+        primaryStage.show();
     }
 
 

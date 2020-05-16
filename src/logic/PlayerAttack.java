@@ -2,6 +2,7 @@ package logic;
 
 import entity.Enemy;
 import entity.Player;
+import javafx.scene.media.AudioClip;
 
 public class PlayerAttack {
     private boolean isAttack;
@@ -9,12 +10,18 @@ public class PlayerAttack {
     private boolean isAttackAir;
     private AttackHitbox atkHB;
     private int attackFrame;
+    private AudioClip slashSFX;
+    private AudioClip spinSlashSFX;
     public PlayerAttack(Player player){
         atkHB = new AttackHitbox(player.getPosX()+30, player.getPosY()-30, 3, 0);
         atkHB.setSize(0,0);
         isAttack = false;
         isAttackHold = false;
         isAttackAir = false;
+        slashSFX = new AudioClip(ClassLoader.getSystemResource("slash.WAV").toString());
+        slashSFX.setVolume(0.1);
+        spinSlashSFX = new AudioClip(ClassLoader.getSystemResource("spinSlash.WAV").toString());
+        spinSlashSFX.setVolume(0.1);
     }
     public void attackInit(){
         if (!isAttack&&!isAttackHold){
@@ -50,6 +57,13 @@ public class PlayerAttack {
         }
         if (attackFrame >= 20) {
             attackEnd();
+        }
+        if (attackFrame == 1) {
+            if (isAttackAir) {
+                spinSlashSFX.play();
+            } else {
+                slashSFX.play();
+            }
         }
     }
     public void updateAttack(Player player, Enemy enemy){

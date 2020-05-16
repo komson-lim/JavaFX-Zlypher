@@ -1,14 +1,12 @@
 package entity;
 
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import pane.GamePane;
-import pane.GameUI;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class Enemy extends Hitbox {
     private int health;
@@ -49,14 +47,14 @@ public class Enemy extends Hitbox {
             this.kill(gamePane);
             enemies.remove(this);
             if (Math.random() <= 1){
-                HealthDrop hd = new HealthDrop(this.posX, this.posY);
-                interactables.add(hd);
-                hd.render(gamePane);
-                hd.updatePos();
-//                LifeUp lifeUp = new LifeUp(this.posX, this.posY);
-//                interactables.add(lifeUp);
-//                lifeUp.render(gamePane);
-//                lifeUp.updatePos();
+//                HealthDrop hd = new HealthDrop(this.posX, this.posY);
+//                interactables.add(hd);
+//                hd.render(gamePane);
+//                hd.updatePos();
+                LifeUp lifeUp = new LifeUp(this.posX, this.posY);
+                interactables.add(lifeUp);
+                lifeUp.render(gamePane);
+                lifeUp.updatePos();
             }
         }
         if (engageBattle(player) && cooldown==0){

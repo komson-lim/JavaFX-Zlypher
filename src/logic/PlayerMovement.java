@@ -39,7 +39,7 @@ public class PlayerMovement {
         this.isDashRelease = true;
         this.isDashHold = false;
         this.isPushDashInAir = false;
-        dashSFX = new AudioClip(ClassLoader.getSystemResource("dash.wav").toString());
+        dashSFX = new AudioClip(ClassLoader.getSystemResource("dash.WAV").toString());
         dashSFX.setVolume(0.1);
     }
     public void update(Player player){

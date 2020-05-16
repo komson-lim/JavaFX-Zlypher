@@ -44,6 +44,12 @@ public class GameMap {
                         wall.render(gamePane);
                         wall.updatePos();
                         break;
+                    case '3':
+                        Platform platform2 = new Platform(j*60, i*60,6);
+                        platforms.add(platform2);
+                        platform2.render(gamePane);
+                        platform2.updatePos();
+                        break;
                     case 'x':
                         player.setPosX(j*60);
                         player.setPosY(i*60);
