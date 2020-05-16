@@ -1,0 +1,9 @@
+.progress-bar > .track {
+    -fx-text-box-border: forestgreen;
+    -fx-control-inner-background: #bffcbf;
+  }
+
+.green-bar  { -fx-accent: #20e820;  }
+.yellow-bar { -fx-accent: #ffff00; }
+.orange-bar { -fx-accent: #ffa500; }
+.red-bar    { -fx-accent: red;    }

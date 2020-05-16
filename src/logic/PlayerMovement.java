@@ -1,6 +1,9 @@
 package logic;
 
 import entity.Player;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 
 public class PlayerMovement {
     private double maxSpeedX;
@@ -20,9 +23,11 @@ public class PlayerMovement {
     private int dashFrame;
     private boolean isDashRelease;
     private boolean isDashHold;
+    private boolean isPushDashInAir;
     private boolean isDashInAir;
     private boolean isIdle;
     private int hurtFrame;
+    private AudioClip dashSFX;
     public PlayerMovement(double maxSpeedX, double jumpSpeed, double dashSpeed){
         this.maxSpeedX = maxSpeedX;
         this.jumpSpeed = jumpSpeed;
@@ -33,7 +38,9 @@ public class PlayerMovement {
         this.isDash = false;
         this.isDashRelease = true;
         this.isDashHold = false;
-        this.isDashInAir = false;
+        this.isPushDashInAir = false;
+        dashSFX = new AudioClip(ClassLoader.getSystemResource("dash.wav").toString());
+        dashSFX.setVolume(0.1);
     }
     public void update(Player player){
         if (player.getIsHurt()){
@@ -95,7 +102,7 @@ public class PlayerMovement {
         isMoveRight = moveRight;
     }
     public void updateDash(){
-        if (!isDashRelease&&!isDashHold&&!isDashInAir){
+        if (!isDashRelease&&!isDashHold&&!isPushDashInAir){
             speedX = dash();
         }else if (isDashRelease&&(isJump||isMoveDown)){
             speedX = dash();
@@ -107,6 +114,10 @@ public class PlayerMovement {
             dashEnd();
             isDashHold = true;
         }
+        if (isDash&&(isJump||isMoveDown)){
+            isDashInAir = true;
+        }
+
     }
     public double dash(){
         isDash = true;
@@ -122,15 +133,18 @@ public class PlayerMovement {
         if (dashFrame <= 6){
             speedX = (maxSpeedX+dashFrame+dashSpeed)/2*direction;
         }
+        if (dashFrame == 1){
+            dashSFX.play();
+        }
         dashFrame++;
         return speedX;
     }
     public void dashInit(){
-        if(!isDash&&!isDashHold){
+        if(!isDash&&!isDashHold&&!isMoveDown){
             dashFrame = 0;
             isDash = true;
             if (isJump){
-                isDashInAir = true;
+                isPushDashInAir = true;
             }
         }
         isDashRelease = false;
@@ -144,7 +158,9 @@ public class PlayerMovement {
         speedX = 0;
         isDash = false;
         dashFrame = 0;
+        isPushDashInAir = false;
         isDashInAir = false;
+//        dashSFX.stop();
     }
 
     // Y direction
@@ -170,7 +186,12 @@ public class PlayerMovement {
             canJump = true;
             speedY = 0;
             isJump = false;
-            isDashInAir = false;
+            if (isDashInAir) {
+                dashEnd();
+                if (!isDashRelease) {
+                    isDashHold = true;
+                }
+            }
             if (player.getAttack().getIsAttackAir()) {
                 player.getAttack().attackEnd();
             }
@@ -214,9 +235,15 @@ public class PlayerMovement {
     public boolean getIsDash(){
         return isDash;
     }
-
     public int getDashFrame() {
         return dashFrame;
+    }
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+
+    public double getSpeedX() {
+        return speedX;
     }
 }
 

@@ -1,0 +1,36 @@
+.button{
+        -fx-text-fill: #066330;
+        -fx-background-color: #ecc44b;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
+        -fx-padding: 10;
+        -fx-font-weight: bold;
+        -fx-font-size: 20px;
+
+}
+/*.button:focused{*/
+/*        -fx-text-fill: #006464;*/
+/*        -fx-background-color: #DFB951;*/
+/*        -fx-border-radius: 20;*/
+/*        -fx-background-radius: 20;*/
+/*        -fx-font-weight: bold;*/
+/*        -fx-font-size: 20px;*/
+/*}*/
+
+.button:hover{
+        -fx-text-fill: #FFFFFF;
+        /*-fx-font-weight: bold;*/
+        -fx-background-color: #f5d255;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
+        -fx-font-size: 20px;
+}
+
+.text1{
+        -fx-fill: #475ff6;
+        /*-fx-stroke: white;*/
+        /*-fx-padding: 20;*/
+        -fx-font-weight: bold;
+        /*-fx-stroke-width: 2px;*/
+        -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,1 );
+}

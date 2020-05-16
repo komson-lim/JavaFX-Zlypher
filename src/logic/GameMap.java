@@ -6,6 +6,7 @@ import javafx.scene.paint.Color;
 import pane.GamePane;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameMap {
     private String[] level;
@@ -31,7 +32,7 @@ public class GameMap {
                     case '0':
                         break;
                     case '1':
-                        Platform platform = new Platform(j*60, i*60);
+                        Platform platform = new Platform(j*60, i*60,5);
                         platforms.add(platform);
                         platform.render(gamePane);
                         platform.updatePos();
