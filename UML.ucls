@@ -163,7 +163,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="logic.AttackHitbox" project="JavaFXPlatformer" 
+  <class id="19" language="java" name="entity.AttackHitbox" project="JavaFXPlatformer"
     file="/JavaFXPlatformer/src/logic/AttackHitbox.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="2525" y="-501"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

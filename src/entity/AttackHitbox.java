@@ -1,4 +1,4 @@
-package logic;
+package entity;
 
 import entity.Hitbox;
 import entity.Sprite;

@@ -1,5 +1,6 @@
 package logic;
 
+import entity.AttackHitbox;
 import entity.Enemy;
 import entity.Player;
 import javafx.scene.media.AudioClip;
