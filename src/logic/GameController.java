@@ -18,7 +18,6 @@ public class GameController {
     private static double lastOffsetY;
     private static boolean isFinish = false;
     private static String[] currentLevel;
-    private static int currentLevelNumber;
     private static ArrayList<Platform> platforms;
     private static ArrayList<Enemy> enemies;
     private static ArrayList<Interactable> interactables;
@@ -65,29 +64,8 @@ public class GameController {
         lastOffsetY = level.length*60;
 
     }
-    public static ArrayList<Interactable> clearOutOfBound(ArrayList<Interactable> interactables, int width, int height , Canvas canvas){
-        double posX = canvas.getTranslateX();
-        double posY = canvas.getTranslateY();
-        for (Interactable i : interactables){
-            var h = (Hitbox)i;
-            if (h.getPosX() >= posX-100 && h.getPosX() <= posX+width+100){
-                if (h.getPosY() >= posY-100 && h.getPosY() <= posY+height+100){
-                    if (!interactables.contains(h)) {
-                        interactables.add(i);
-
-                    }
-                }else{
-                    interactables.add(i);
-                }
-            }else{
-                interactables.add(i);
-            }
-        }
-        return interactables;
-    }
     public static void initializedLevel(int levelNumber, GamePane gamePane, Player player){
         GameController.setIsFinish(false);
-        currentLevelNumber = levelNumber;
         try {
             currentLevel = LevelData.getLevel(levelNumber);
         } catch (NoLevelDataException e) {

@@ -11,6 +11,7 @@ import pane.GameUI;
 public class HealthDrop extends Hitbox implements Interactable,Consumable {
     private int healthGain;
     private AudioClip healthSFX;
+    private boolean notDespawn;
     public HealthDrop(double posX, double posY){
         super(posX, posY);
 //        Rectangle r = new Rectangle(10,10);
@@ -19,8 +20,9 @@ public class HealthDrop extends Hitbox implements Interactable,Consumable {
         ImageView image = new ImageView(new Image(ClassLoader.getSystemResource("health.png").toString(),50,50,true,true));
         setHitbox(image);
         healthGain = 3;
-        healthSFX = new AudioClip(ClassLoader.getSystemResource("health.WAV").toString());
+        healthSFX = new AudioClip(ClassLoader.getSystemResource("health.wav").toString());
         healthSFX.setVolume(0.1);
+        notDespawn = false;
     }
     public HealthDrop(double posX, double posY,int healthGain){
         super(posX, posY);
@@ -36,6 +38,12 @@ public class HealthDrop extends Hitbox implements Interactable,Consumable {
     }
     public void consume(GamePane gamePane){
         this.kill(gamePane);
+    }
+    public void setNotDespawn(boolean notDespawn) {
+        this.notDespawn = notDespawn;
+    }
+    public boolean getNotDespawn(){
+        return this.notDespawn;
     }
 }
 

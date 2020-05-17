@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 import pane.GamePane;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Enemy extends Hitbox {
     private int health;
@@ -46,22 +47,26 @@ public class Enemy extends Hitbox {
         if (health<=0){
             this.kill(gamePane);
             enemies.remove(this);
-            if (Math.random() <= 1){
-//                HealthDrop hd = new HealthDrop(this.posX, this.posY);
-//                interactables.add(hd);
-//                hd.render(gamePane);
-//                hd.updatePos();
+            double rng = Math.random();
+            if (rng <= 0.01) {
                 LifeUp lifeUp = new LifeUp(this.posX, this.posY);
                 interactables.add(lifeUp);
                 lifeUp.render(gamePane);
                 lifeUp.updatePos();
+            }else if (rng <= 0.3){
+                HealthDrop hd = new HealthDrop(this.posX, this.posY);
+                interactables.add(hd);
+                hd.render(gamePane);
+                hd.updatePos();
+
             }
         }
         if (engageBattle(player) && cooldown==0){
             isAttack = true;
             if (attackFrame == 0) {
                 this.attack(interactables, gamePane);
-                cooldown = 120;
+                Random random = new Random();
+                cooldown = 75 + random.nextInt(20) -10 ;
             }
         }
         if (attackFrame <= 11 && isAttack){
@@ -72,7 +77,8 @@ public class Enemy extends Hitbox {
             }
         }
         if (isAttacked){
-            cooldown = 120;
+            Random random = new Random();
+            cooldown = 75 + random.nextInt(20) -10;
             attackFrame = 0;
             isAttack = false;
             if (!engageBattle(player)){
@@ -86,11 +92,11 @@ public class Enemy extends Hitbox {
 
     }
     public boolean engageBattle(Player player){
-        if (player.posY <= posY +200 && player.posY >= posY -200 )
+        if (player.posY <= posY +600 && player.posY >= posY -600 )
         if (direction == -1){
-            return player.posX <= posX && player.posX >= posX-300;
+            return player.posX <= posX && player.posX >= posX-700;
         }else if (direction == 1){
-            return player.posX <= posX+300 && player.posX >= posX;
+            return player.posX <= posX+700 && player.posX >= posX;
         }
         return false;
     }
@@ -99,10 +105,10 @@ public class Enemy extends Hitbox {
             @Override
             public void run() {
                 if (!engageBattle(player)&&cooldown==0&&directionCooldown==0){
-                    if (Math.random() <= 1){
+                    if (Math.random() <= 0.5){
                         direction = -direction;
                     }
-                    directionCooldown = 300;
+                    directionCooldown = 120;
                 }
                 if (directionCooldown != 0){
                     directionCooldown --;

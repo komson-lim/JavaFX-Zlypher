@@ -50,6 +50,12 @@ public class GameMap {
                         platform2.render(gamePane);
                         platform2.updatePos();
                         break;
+                    case '4':
+                        Platform platform3 = new Platform(j*60, i*60,7);
+                        platforms.add(platform3);
+                        platform3.render(gamePane);
+                        platform3.updatePos();
+                        break;
                     case 'x':
                         player.setPosX(j*60);
                         player.setPosY(i*60);
@@ -58,7 +64,7 @@ public class GameMap {
                     case 'e':
                         Enemy enemy = new Enemy(j*60, i*60, 1);
                         enemies.add(enemy);
-                        enemy.render(gamePane);
+//                        enemy.render(gamePane);
                         enemy.updatePos();
                         break;
                     case 'f':
@@ -66,6 +72,21 @@ public class GameMap {
                         interactables.add(finishPoint);
                         finishPoint.render(gamePane);
                         finishPoint.updatePos();
+                        break;
+                    case 'h':
+                        HealthDrop healthDrop = new HealthDrop(j*60, i*60);
+                        healthDrop.setNotDespawn(true);
+                        interactables.add(healthDrop);
+                        healthDrop.render(gamePane);
+                        healthDrop.updatePos();
+                        break;
+                    case 'l':
+                        LifeUp lifeUp = new LifeUp(j*60, i*60);
+                        lifeUp.setNotDespawn(true);
+                        interactables.add(lifeUp);
+                        lifeUp.render(gamePane);
+                        lifeUp.updatePos();
+                        break;
                 }
             }
         }

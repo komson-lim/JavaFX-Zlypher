@@ -3,5 +3,6 @@ package entity;
 import pane.GamePane;
 
 public interface Consumable {
-    public void consume(GamePane gamePane);
+    void consume(GamePane gamePane);
+    boolean getNotDespawn();
 }

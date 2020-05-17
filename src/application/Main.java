@@ -11,6 +11,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -29,14 +31,13 @@ import java.util.HashMap;
 public class Main extends Application {
     private static int width = 1200;
     private static int height = 900;
-    private HashMap<KeyCode, Boolean> keys = new HashMap<>();
     private static Pane root = new StackPane();
     private Pane rootMenu = new StackPane();
     private static GamePane gamePane = new GamePane(width,height);
     private static Canvas canvas = gamePane.getCanvas();
     private GraphicsContext gc = canvas.getGraphicsContext2D();
     private static Player player = gamePane.getPlayer();
-    private GameBackground gameBackground = new GameBackground(width, height);
+    private static GameBackground gameBackground = new GameBackground(width, height);
     private static LoadScreen loadScreen = new LoadScreen(width,height,player);
     private MenuPane menuPane = new MenuPane(width, height);
     private GameOverPane gameOverPane = new GameOverPane(width, height);
@@ -50,29 +51,16 @@ public class Main extends Application {
     private static String[] currentLevel;
     private static int currentLevelNumber;
     private static ArrayList<Interactable>interactables = new ArrayList<>();
-    private ArrayList<Platform> nearPlatforms = new ArrayList<>();
-    private ObservableList<Platform> list = FXCollections.observableArrayList();
-    private ArrayList<Platform> toAdd = new ArrayList<>();
-    private ArrayList<Platform> toRemove = new ArrayList<>();
     private GameUI gameUI = new GameUI(player);
     private static AnimationTimer timer;
 
-//    public void initializeLevel(int levelNumber) throws NoLevelDataException {
-//        GameController.setIsFinish(false);
-//        currentLevelNumber = levelNumber;
-//        currentLevel = LevelData.getLevel(levelNumber);
-//        GameMap gameMap = GameController.initializeMap(currentLevel, gamePane, player);
-//        platforms = gameMap.getPlatforms();
-//        enemies = gameMap.getEnemies();
-//        interactables = gameMap.getInteractables();
-//
-//    }
     private void reload(int levelNumber) throws NoLevelDataException{
         reset(levelNumber);
         initializeLevel(levelNumber);
 
     }
     private void reset(int levelNumber) throws NoLevelDataException{
+        gameBackground.removeBg();
         gamePane.getMediaPlayer().stop();
         player.setHealth(20);
         player.getMovement().setDirection(1);
@@ -84,6 +72,11 @@ public class Main extends Application {
         gameBackgroundParallax.reset();
     }
     public static void initializeLevel(int levelNumber){
+        if (levelNumber == 2){
+            gameBackground.addBg();
+        }else {
+            gameBackground.removeBg();
+        }
         try {
             currentLevel = LevelData.getLevel(levelNumber);
         } catch (NoLevelDataException e) {
@@ -111,23 +104,13 @@ public class Main extends Application {
         load.start();
 
     }
-    private Parent createContent() throws NoLevelDataException{
+    private Parent createContent() {
         root.getChildren().add(gameBackground);
         root.getChildren().add(gameBackgroundParallax);
         currentLevelNumber = 1;
-//        currentLevel = LevelData.getLevel(1);
-//        GameController.initializedLevel(1,gamePane,player);
-//        platforms = GameController.getPlatforms();
-//        enemies = GameController.getEnemies();
-//        interactables = GameController.getInteractables();
 //        player.render(gamePane);
-//        for (Platform f : platforms){
-//            f.render(root);
-//            f.updatePos();
-//        }
         player.updatePos();
-        player.getAttack().getAtkHB().render(gamePane);
-//        root.getChildren().add(canvas);
+//        player.getAttack().getAtkHB().render(gamePane);
         root.setPrefSize(width, height);
         timer = new AnimationTimer() {
             @Override
@@ -141,16 +124,8 @@ public class Main extends Application {
         };
         gamePane.setPrefSize(width,height);
         root.getChildren().add(gamePane);
-//        gamePane.getChildren().add(canvas);
         gameUI.setPrefSize(width,height);
         root.getChildren().add(gameUI);
-//        timer.start();
-        list.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                System.out.println(list.size());
-            }
-        });
         return root;
     }
 
@@ -161,19 +136,21 @@ public class Main extends Application {
         for (Object o : tempInteractable) {
             var i = (Interactable)o;
             if (i instanceof Consumable) {
-                var h = (Hitbox) i;
-                if (h.getPosX() >= posX - 100 && h.getPosX() <= posX + width + 100) {
-                    if (h.getPosY() >= posY - 100 && h.getPosY() <= posY + height + 100) {
-                        if (!interactables.contains(h)) {
-                            interactables.add(i);
+                if (!((Consumable) i).getNotDespawn()) {
+                    var h = (Hitbox) i;
+                    if (h.getPosX() >= posX - 100 && h.getPosX() <= posX + width + 100) {
+                        if (h.getPosY() >= posY - 100 && h.getPosY() <= posY + height + 100) {
+                            if (!interactables.contains(h)) {
+                                interactables.add(i);
+                            }
+                        } else {
+                            interactables.remove(i);
+                            ((Consumable) i).consume(gamePane);
                         }
                     } else {
                         interactables.remove(i);
                         ((Consumable) i).consume(gamePane);
                     }
-                } else {
-                    interactables.remove(i);
-                    ((Consumable) i).consume(gamePane);
                 }
             }
         }
@@ -228,7 +205,7 @@ public class Main extends Application {
             player.setHealth(0);
         }
         if (player.getHealth() == 0){
-            player.setLives(player.getLives()-2);
+            player.setLives(player.getLives()-1);
             if (player.getLives() < 0){
                 root.getChildren().add(gameOverPane);
                 player.setLives(3);
@@ -263,7 +240,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         scene = new Scene(createContent());
-        rootMenu.getChildren().add(menuPane);
+        ImageView bg = new ImageView(new Image(ClassLoader.getSystemResource("menuBg.png").toString(),1200,900,true,true));
+        rootMenu.getChildren().addAll(bg,menuPane);
         mainMenu = new Scene(rootMenu);
         mainMenu.getStylesheets().add(ClassLoader.getSystemResource("MenuStyle.css").toString());
         menuPane.addListener(scene,primaryStage,rootMenu,howToPlayPane);
@@ -272,7 +250,7 @@ public class Main extends Application {
         howToPlayPane.addListener(rootMenu);
         winPane.addListener(mainMenu,primaryStage,root,menuPane);
         primaryStage.setScene(mainMenu);
-        primaryStage.setTitle("Platformer");
+        primaryStage.setTitle("Zlypher");
         primaryStage.setResizable(false);
         menuPane.play();
         primaryStage.show();

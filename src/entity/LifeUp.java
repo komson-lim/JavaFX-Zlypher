@@ -9,6 +9,7 @@ import pane.GamePane;
 
 public class LifeUp extends Hitbox implements Interactable, Consumable {
     private AudioClip lifeUpSFX;
+    private boolean notDespawn;
     public LifeUp(double posX, double posY){
         super(posX, posY);
 //        Rectangle r = new Rectangle(10,10);
@@ -18,6 +19,7 @@ public class LifeUp extends Hitbox implements Interactable, Consumable {
         setHitbox(image);
         lifeUpSFX = new AudioClip(ClassLoader.getSystemResource("lifeup.wav").toString());
         lifeUpSFX.setVolume(0.1);
+        notDespawn = false;
     }
     public void interact(Player player, GamePane gamePane){
         player.setLives(player.getLives()+1);
@@ -26,5 +28,12 @@ public class LifeUp extends Hitbox implements Interactable, Consumable {
     }
     public void consume(GamePane gamePane){
         this.kill(gamePane);
+    }
+
+    public void setNotDespawn(boolean notDespawn) {
+        this.notDespawn = notDespawn;
+    }
+    public boolean getNotDespawn(){
+        return this.notDespawn;
     }
 }

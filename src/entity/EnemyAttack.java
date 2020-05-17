@@ -13,6 +13,7 @@ public class EnemyAttack extends Hitbox implements Interactable,Updatable,Consum
     private ImageView kunai;
     private ImageView kunaiL;
     private int direction;
+    private boolean notDespawn;
     public EnemyAttack(double posX, double posY,int speedX ,int damage){
         super(posX, posY);
 //        Rectangle r = new Rectangle(10,10);
@@ -24,6 +25,7 @@ public class EnemyAttack extends Hitbox implements Interactable,Updatable,Consum
         this.damage = damage;
         this.speedX = speedX;
         direction = -1;
+        notDespawn = true;
     }
     public void interact(Player player, GamePane gamePane){
         if (!player.getIsInvincible()) {
@@ -53,8 +55,12 @@ public class EnemyAttack extends Hitbox implements Interactable,Updatable,Consum
             setHitbox(kunaiL);
         }
     }
-
     public int getDirection() {
         return direction;
+    }
+
+    @Override
+    public boolean getNotDespawn() {
+        return false;
     }
 }

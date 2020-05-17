@@ -7,6 +7,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
@@ -15,6 +17,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 public class MenuPane extends VBox {
     private Button start;
@@ -50,7 +53,8 @@ public class MenuPane extends VBox {
                 mediaPlayer.play();
             }
         });
-        getChildren().addAll(start,howTo,quit);
+        ImageView logo = new ImageView(new Image(ClassLoader.getSystemResource("logo.png").toString(),500,500,true,true));
+        getChildren().addAll(logo,start,howTo,quit);
     }
     public void addListener(Scene scene, Stage primaryStage,Pane root ,Pane pane){
         start.setOnAction(e -> {

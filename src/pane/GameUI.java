@@ -9,19 +9,19 @@ import javafx.scene.text.Text;
 
 public class GameUI extends Pane {
     private int health;
-    private Text healthText;
+//    private Text healthText;
     private ProgressBar pb;
     private int lives;
     private Text livesText;
     private String[] barColorStyleClasses = { "red-bar", "yellow-bar", "orange-bar", "green-bar" };
     public GameUI(Player player){
         this.health = player.getHealth();
-        healthText = new Text();
-        healthText.setText(String.valueOf(health));
-        healthText.setFill(Color.BLACK);
-        healthText.setFont(new Font("arial", 25));
-        healthText.setX(500);
-        healthText.setY(50);
+//        healthText = new Text();
+//        healthText.setText(String.valueOf(health));
+//        healthText.setFill(Color.BLACK);
+//        healthText.setFont(new Font("arial", 25));
+//        healthText.setX(500);
+//        healthText.setY(50);
         pb = new ProgressBar(0);
         pb.setPrefSize(200,25);
         pb.setTranslateX(10);
@@ -30,13 +30,13 @@ public class GameUI extends Pane {
         pb.getStyleClass().add("green-bar");
         this.lives = player.getLives();
         livesText = new Text();
-        livesText.setText(String.valueOf(lives));
+        livesText.setText("Lives: " + lives);
         livesText.setFill(Color.BLACK);
         livesText.setFont(new Font("arial", 25));
         livesText.setX(1000);
         livesText.setY(50);
         getStylesheets().add(ClassLoader.getSystemResource("InGameUIStyle.css").toString());
-        this.getChildren().addAll(healthText,pb,livesText);
+        this.getChildren().addAll(pb,livesText);
     }
     public void update(Player player){
         this.health = player.getHealth();
@@ -51,8 +51,9 @@ public class GameUI extends Pane {
         } else {
             setBarStyleClass(pb, "green-bar");
         }
-        healthText.setText(String.valueOf(health));
-        livesText.setText(String.valueOf(lives));
+//        healthText.setText(String.valueOf(health));
+        livesText.setText("Lives: " + lives);
+        livesText.getStyleClass().add("text1");
         pb.setProgress(progress);
     }
     public void setBarStyleClass(ProgressBar pb, String color) {

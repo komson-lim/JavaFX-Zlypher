@@ -7,3 +7,11 @@
 .yellow-bar { -fx-accent: #ffff00; }
 .orange-bar { -fx-accent: #ffa500; }
 .red-bar    { -fx-accent: red;    }
+.text1{
+    -fx-fill: #1c1495;
+    -fx-stroke: white;
+    /*-fx-padding: 20;*/
+    -fx-font-weight: bolder;
+    -fx-stroke-width: 1.5px;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.5) , 0,0,0,1 );
+}
