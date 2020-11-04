@@ -49,10 +49,10 @@ public class Player extends Hitbox {
             }
         }
     }
-    public void hurt(Enemy enemy){
-        health -= enemy.getDamage();
-        isHurt =  true;
-    }
+//    public void hurt(Enemy enemy){
+//        health -= enemy.getDamage();
+//        isHurt =  true;
+//    }
     public void renderSprite(GraphicsContext gc, double offsetX, double offsetY){
         if (!isInvincible || invincibleFrame%5 == 0) {
             playerSprite.updateImage(this);
